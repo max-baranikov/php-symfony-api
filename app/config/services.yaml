@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Domain\Product\Policies\:
+        resource: '../src/Domain/Product/Policies/'
+        tags: ['app.discount_policy']
+
+    App\Infrastructure\Persistence\Doctrine\ProductRepository:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Application\ListProducts\ListProductsHandler:
+        arguments:
+            $discountPolicies: !tagged_iterator app.discount_policy
+
+    App\Infrastructure\Http\Controller\ProductController:
+        arguments:
+            $listProductsHandler: '@App\Application\ListProducts\ListProductsHandler'

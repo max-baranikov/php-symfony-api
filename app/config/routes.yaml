@@ -1,0 +1,4 @@
+api_doc:
+    resource: ../src/Infrastructure/Http/Controller/
+    type: attribute
+    prefix: /api
