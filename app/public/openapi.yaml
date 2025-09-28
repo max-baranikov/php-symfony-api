@@ -1,0 +1,62 @@
+openapi: 3.0.0
+paths:
+  /products:
+    get:
+      summary: 'List products with discounts applied'
+      operationId: 332424786156c4e0c1e603967474566d
+      parameters:
+        -
+          name: category
+          in: query
+          description: 'Filter by category'
+          required: false
+          schema:
+            type: string
+        -
+          name: priceLessThan
+          in: query
+          description: 'Filter by maximum price (in cents)'
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: 'List of products with discounts applied'
+          content:
+            application/json:
+              schema:
+                properties:
+                  '': { type: array, items: { $ref: '#/components/schemas/ProductView' }, maxItems: 5 }
+                type: object
+components:
+  schemas:
+    ProductView:
+      properties:
+        sku:
+          type: string
+          example: '000001'
+        name:
+          type: string
+          example: 'Test Product'
+        category:
+          type: string
+          example: boots
+        price:
+          properties:
+            original:
+              type: integer
+              example: 89000
+            final:
+              type: integer
+              example: 62300
+            discount_percentage:
+              type: string
+              example: 30%
+              nullable: true
+            currency:
+              type: string
+              example: EUR
+          type: object
+      type: object
+tags: []
