@@ -1,0 +1,20 @@
+nelmio_api_doc:
+    documentation:
+        servers:
+            - url: http://localhost:8080/
+              description: Development server
+        info:
+            title: Products API
+            description: Products API with discount system
+            version: 1.0.0
+            contact:
+                name: API Support
+                email: support@example.com
+        components:
+            securitySchemes: {}
+        security: []
+    areas:
+        path_patterns:
+            - ^/api(?!/doc)
+    models:
+        use_jms: false
